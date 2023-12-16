@@ -1,0 +1,63 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "wagtail-defender"
+authors = [{name = "Ben Morse", email = "96morse@gmail.com"}]
+description = "django-defender configured for Wagtail"
+readme = "README.md"
+license = {file = "LICENSE"}
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Framework :: Django",
+    "Framework :: Django :: 3.2",
+    "Framework :: Django :: 4.2",
+    "Framework :: Wagtail",
+    "Framework :: Wagtail :: 4",
+    "Framework :: Wagtail :: 5",
+]
+requires-python = ">=3.8"
+dynamic = ["version"]
+dependencies = [
+    "Django>=3.2",
+    "Wagtail>=4.1"
+]
+[project.optional-dependencies]
+testing = [
+    "dj-database-url==2.1.0",
+    "pre-commit==3.4.0"
+]
+ci = [
+    "tox==4.11.3",
+    "tox-gh-actions==3.1.3"
+]
+
+[project.urls]
+Home = "https://github.com/Morsey187/wagtail-defender"
+
+[tool.flit.module]
+name = "wagtail_defender"
+
+[tool.flit.sdist]
+exclude = [
+    "wagtail_defender/static_src",
+    "wagtail_defender/test",
+    "wagtail_defender/static/wagtail_defender/js/.gitignore",
+    "testmanage.py",
+    ".*",
+    "*.js",
+    "*.json",
+    "*.ini",
+    "*.yml"
+]
