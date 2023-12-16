@@ -27,7 +27,7 @@ django-defender configured for Wagtail
 
 ## Contributing
 
-### Install
+### Setup
 
 To make changes to this project, first clone this repository:
 
@@ -35,6 +35,21 @@ To make changes to this project, first clone this repository:
 git clone https://github.com/Morsey187/wagtail-defender.git
 cd wagtail-defender
 ```
+
+### Redis
+
+This package requires using redis as Django's cache backend. Before contributing make sure to install and run redis locally using the `redis.config`` file in the root directory.
+
+On mac you can run:
+```sh
+brew install redis
+```
+And then:
+```sh
+redis-server ./redis.conf
+```
+
+### Install
 
 With your preferred virtualenv activated, install testing dependencies:
 
@@ -69,7 +84,7 @@ $ git ls-files --others --cached --exclude-standard | xargs pre-commit run --fil
 
 ### How to run tests
 
-Now you can run tests as shown below:
+Now you can run tests as shown below, however, ensure your Redis server is running (`redis-server ./redis.conf`) before running any tests:
 
 ```sh
 tox
