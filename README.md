@@ -41,7 +41,7 @@ Configure [django-defender](https://django-defender.readthedocs.io/en/latest/#cu
 ```python
 DEFENDER_LOGIN_FAILURE_LIMIT = 3
 DEFENDER_COOLOFF_TIME = 300  # seconds
-DEFENDER_LOCKOUT_TEMPLATE = "wagtail_defender/lockout.html" # optional
+DEFENDER_LOCKOUT_TEMPLATE = "wagtail_defender/lockout.html"  # optional
 ```
 
 Finally run migrations:
@@ -134,7 +134,7 @@ To run the test app interactively, use `tox -e interactive`, visit `http://127.0
 - [ ] Remove "add" and "edit" views from AccessAttempt ModelViewset
 - [ ] Filterset on AccessAttempt ModelViewset to support filtering fields
     - [ ] Should default to failed login attempts only
-- [ ] Dashboard view to easily view and ban sus login attempts from IP addresses 
+- [ ] Dashboard view to easily view and ban sus login attempts from IP addresses
 - [ ] Utils to support sending notifications for:
     - [ ] High volumes of failed login attempts
     - [ ] When a user is locked out
