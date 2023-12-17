@@ -32,8 +32,9 @@ ALLOWED_HOSTS = ["localhost", "testserver"]
 # Application definition
 
 INSTALLED_APPS = [
-    "wagtail_defender",
-    "wagtail_defender.test",
+    # "defender",
+    # "wagtail_defender",
+    "tests.test",
     "wagtail.contrib.search_promotions",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
@@ -71,7 +72,7 @@ MIDDLEWARE = [
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
-ROOT_URLCONF = "wagtail_defender.test.urls"
+ROOT_URLCONF = "tests.test.urls"
 
 TEMPLATES = [
     {
@@ -90,13 +91,10 @@ TEMPLATES = [
 ]
 
 
-# Using DatabaseCache to make sure that the cache is cleared between tests.
-# This prevents false-positives in some wagtail core tests where we are
-# changing the 'wagtail_root_paths' key which may cause future tests to fail.
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
-        "LOCATION": "cache",
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
     }
 }
 
@@ -157,5 +155,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "test-media")
 
 
 # Wagtail settings
-
 WAGTAIL_SITE_NAME = "Wagtail defender test site"
+
+
+# django-defender
+INSTALLED_APPS += ["defender", "wagtail_defender"]
+MIDDLEWARE.append("defender.middleware.FailedLoginMiddleware")
+
+# Custom settings
+# see https://django-defender.readthedocs.io/en/latest/#customizing-django-defender
+DEFENDER_LOGIN_FAILURE_LIMIT = 3
+DEFENDER_COOLOFF_TIME = 300  # seconds
+DEFENDER_LOCKOUT_TEMPLATE = "wagtail_defender/lockout.html"

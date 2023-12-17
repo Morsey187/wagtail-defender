@@ -32,6 +32,7 @@ dynamic = ["version"]
 dependencies = [
     "Django>=3.2",
     "Wagtail>=5.1",
+    "django-defender>=0.9.7",
     "redis>=4.0.3"
 ]
 [project.optional-dependencies]
@@ -54,7 +55,9 @@ name = "wagtail_defender"
 exclude = [
     "wagtail_defender/static_src",
     "wagtail_defender/test",
+    "tests/test",
     "wagtail_defender/static/wagtail_defender/js/.gitignore",
+    "tests",
     "testmanage.py",
     ".*",
     "*.js",

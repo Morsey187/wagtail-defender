@@ -2,6 +2,6 @@ from django.apps import AppConfig
 
 
 class WagtailDefenderTestAppConfig(AppConfig):
-    label = "wagtail_defender_test"
-    name = "wagtail_defender.test"
+    label = "tests"
+    name = "tests.test"
     verbose_name = "Wagtail defender tests"

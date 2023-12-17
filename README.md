@@ -22,8 +22,41 @@ django-defender configured for Wagtail
 
 ## Installation
 
-- `python -m pip install wagtail-defender`
-- ...
+First install using pip (TODO publish package)
+
+- `pip install wagtail-defender`
+
+Then add django-defender and wagtail-defender to your project's INSTALLED_APPS:
+
+```Python
+INSTALLED_APPS = [
+    "defender",
+    "wagtail_defender",
+    # ...
+]
+```
+
+Configure [django-defender](https://django-defender.readthedocs.io/en/latest/#customizing-django-defender) in your settings file, example:
+
+```python
+DEFENDER_LOGIN_FAILURE_LIMIT = 3
+DEFENDER_COOLOFF_TIME = 300  # seconds
+DEFENDER_LOCKOUT_TEMPLATE = "wagtail_defender/lockout.html" # optional
+```
+
+Finally run migrations:
+
+```sh
+python manage.py migrate
+```
+
+## Customizing wagtail-defender
+
+This package is designed to make managing django-defender possible via the Wagtail admin along with styling features from django defender such as lockout templates to better compliment Wagtail, apart from setting permissions for the addtional admin views provided, wagtail-defender is otherwise not customisable, and instead adapts to how [django-defender](https://github.com/jazzband/django-defender#customizing-django-defender) is configured.
+
+### Permissions
+
+TODO, by default, views are restricted to superusers only.
 
 ## Contributing
 
@@ -94,3 +127,26 @@ or, you can run them for a specific environment `tox -e python3.11-django4.2-wag
 `tox -e python3.11-django4.2-wagtail5.1-sqlite wagtail-defender.tests.test_file.TestClass.test_method`
 
 To run the test app interactively, use `tox -e interactive`, visit `http://127.0.0.1:8020/admin/` and log in with `admin`/`changeme`.
+
+## TODO
+
+- [ ] Docs on setting and configuring admin permissions
+- [ ] Remove "add" and "edit" views from AccessAttempt ModelViewset
+- [ ] Filterset on AccessAttempt ModelViewset to support filtering fields
+    - [ ] Should default to failed login attempts only
+- [ ] Dashboard view to easily view and ban sus login attempts from IP addresses 
+- [ ] Utils to support sending notifications for:
+    - [ ] High volumes of failed login attempts
+    - [ ] When a user is locked out
+- [ ] Support setting `DEFENDER_STORE_ACCESS_ATTEMPTS` to true or false
+- [ ] bulk action support for redis items
+- [ ] Add setting for warning message to inform user they could be locked out after N attempts.
+- [ ] Add whitelist and blacklist support to django-defender
+    - [ ] Option to save cache related to LOCKOUTs to database as well as review for blacklist and spotting malicious IP addresses.
+- [ ] Allow managing support in Admin
+- [ ] Unit tests and load testing
+- [ ] Look into support for logging and notifiying users of unusual successful sigin attempts (device, location)
+
+## Notes
+
+IP addresses can sometimes be hidden behind a proxy such as cloudflare depending on your hosting infrastructure which can cause issues with tracking and blocking IP addresses. One way to resolve this is via middleware https://gist.github.com/Morsey187/562817f4d631ae453e186a3a2f5fe604.
