@@ -1,0 +1,24 @@
+{% extends "wagtailadmin/admin_base.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block titletag %}{% trans "Account locked" %}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/login.css' %}" type="text/css" />
+{% endblock %}
+
+{% block furniture %}
+    <main class="content-wrapper" role="main">
+        <h1>{% blocktrans %}Account locked{% endblocktrans %}</h1>
+        <p>
+            {% blocktrans %}Your account has been locked due to failed login attempts.{% endblocktrans %}
+        </p>
+        <p>
+            {% if cooloff_time_minutes == 0 %}
+                {% blocktrans %}Please try again later.{% endblocktrans %}
+            {% else %}
+                {% blocktrans %}Please try again after{% endblocktrans %} {{ cooloff_time_minutes|floatformat:"0" }} {% blocktrans %}minutes{{ cooloff_time_minutes|pluralize }}.{% endblocktrans %}
+            {% endif %}
+        </p>
+    </main>
+{% endblock %}
